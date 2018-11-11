@@ -5,11 +5,9 @@ export class RSA {
     /**
      * 公钥加密
      * @param data 
-     * @param keyfile 
+     * @param key 
      */
-    static publicEncrypt(data: string, keyfile: string) {
-        var absolutePath = path.resolve(keyfile);
-        var key = fs.readFileSync(absolutePath, "utf8");
+    static publicEncrypt(data: string, key: string) {
         var buffer = Buffer.from(data);
         var encrypted = crypto.publicEncrypt({
             key, padding: crypto.constants.RSA_PKCS1_PADDING
@@ -19,11 +17,9 @@ export class RSA {
     /**
      * 私钥加密
      * @param data 
-     * @param keyfile 
+     * @param key 
      */
-    static privateEncrypt(data: string, keyfile: string) {
-        var absolutePath = path.resolve(keyfile);
-        var key = fs.readFileSync(absolutePath, "utf8");
+    static privateEncrypt(data: string, key: string) {
         var buffer = Buffer.from(data);
         var encrypted = crypto.privateEncrypt({
             key, padding: crypto.constants.RSA_PKCS1_PADDING
@@ -33,24 +29,20 @@ export class RSA {
     /**
      * 公钥解密
      * @param data 
-     * @param keyfile 
+     * @param key 
      */
-    static publicDecrypt(data: string, keyfile: string) {
-        var absolutePath = path.resolve(keyfile);
-        var key = fs.readFileSync(absolutePath, 'utf-8');
+    static publicDecrypt(data: string, key: string) {
         var buffer = Buffer.from(data, "base64");
         var decrypted = crypto.publicDecrypt({ key, padding: crypto.constants.RSA_PKCS1_PADDING }, buffer);
         return decrypted.toString("utf8");
     }
     /**
      * 私钥解密
-     * @param toDecrypt 
-     * @param relativeOrAbsolutePathtoPrivateKey 
+     * @param data 
+     * @param key 
      */
-    static privateDecrypt(toDecrypt, relativeOrAbsolutePathtoPrivateKey) {
-        var absolutePath = path.resolve(relativeOrAbsolutePathtoPrivateKey);
-        var key = fs.readFileSync(absolutePath, 'utf-8');
-        var buffer = Buffer.from(toDecrypt, "base64");
+    static privateDecrypt(data: string, key: string) {
+        var buffer = Buffer.from(data, "base64");
         var decrypted = crypto.privateDecrypt({ key, padding: crypto.constants.RSA_PKCS1_PADDING }, buffer);
         return decrypted.toString("utf8");
     }
