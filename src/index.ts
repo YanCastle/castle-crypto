@@ -51,4 +51,10 @@ export class MD5 {
     static encode(data: string) {
         return crypto.createHash('md5').update(data).digest('hex')
     }
+    static password_hash(data: string, salt: string = ""): string {
+        return MD5.encode([salt, data, salt].join(''))
+    }
+    static password_verify(password: string, secret: string, salt: string = ""): boolean {
+        return MD5.password_hash(password, salt) == secret;
+    }
 }
