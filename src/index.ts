@@ -58,7 +58,7 @@ export class MD5 {
      * @param data 
      */
     static encode(data: string) {
-        return md5.update(data).digest('hex')
+        return crypto.createHash('md5').update(data).digest('hex')
     }
     /**
      * 用md5进行密码加密
