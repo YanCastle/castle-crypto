@@ -1,5 +1,3 @@
-import * as fs from 'fs'
-import * as path from 'path'
 import * as crypto from 'crypto'
 import { env } from 'process';
 export class RSA {
