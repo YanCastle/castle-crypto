@@ -1,11 +1,12 @@
 {
-  "name": "castle-crypto",
-  "version": "1.0.4",
+  "name": "@ctsy/crypto",
+  "version": "1.0.5",
   "description": "",
   "main": "dist/index.js",
   "files": [
     "dist/**/*.js",
-    "dist/**/*.ts"
+    "dist/**/*.d.ts",
+    "README.md"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
