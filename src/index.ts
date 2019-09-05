@@ -46,6 +46,27 @@ export class RSA {
         return decrypted.toString("utf8");
     }
 }
+
+export class AES {
+    key: string = "";
+    encoder: crypto.Cipher;
+    decoder: crypto.Decipher;
+    constructor(key: string, type: string = "aes128") {
+        this.key = key;
+        this.encoder = crypto.createCipher(type, Buffer.from(this.key, 'base64'));
+        this.decoder = crypto.createDecipher(type, Buffer.from(this.key, 'base64'))
+    }
+    encode(data: string) {
+        this.encoder.update(data)
+        return this.encoder.final('base64');
+    }
+    decode(data: string) {
+        this.decoder.update(Buffer.from(data, 'base64'));
+        return this.decoder.final('utf-8')
+    }
+}
+
+
 const md5 = crypto.createHash('md5');
 /**
  * MD5加密
@@ -56,7 +77,7 @@ export class MD5 {
      * @param data 
      */
     static encode(data: string) {
-        return crypto.createHash('md5').update(data).digest('hex')
+        return md5.update(data).digest('hex')
     }
     /**
      * 用md5进行密码加密
