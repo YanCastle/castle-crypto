@@ -142,3 +142,14 @@ export class Base64 {
         return Buffer.from(data, 'base64').toString()
     }
 }
+/**
+ * sha密码加密
+ */
+export class PasswordSha1 {
+    static hash(pwd: string, salt: string) {
+        return crypto.createHmac('sha1', salt).update(pwd).digest().toString('base64');
+    }
+    static verify(key: string, pwd: string, salt: string) {
+        return key == PasswordSha1.hash(pwd, salt);
+    }
+}
