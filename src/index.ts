@@ -6,44 +6,44 @@ export class RSA {
      * @param data 
      * @param key 
      */
-    static publicEncrypt(data: string, key: string) {
-        var buffer = Buffer.from(data);
+    static publicEncrypt(data: string | Buffer, key: string) {
+        var buffer = 'string' == typeof data ? Buffer.from(data, "base64") : data;
         var encrypted = crypto.publicEncrypt({
             key, padding: crypto.constants.RSA_PKCS1_PADDING
         }, buffer);
-        return encrypted.toString("base64");
+        return encrypted;
     }
     /**
      * 私钥加密
      * @param data 
      * @param key 
      */
-    static privateEncrypt(data: string, key: string) {
-        var buffer = Buffer.from(data);
+    static privateEncrypt(data: string | Buffer, key: string) {
+        var buffer = 'string' == typeof data ? Buffer.from(data, "base64") : data;
         var encrypted = crypto.privateEncrypt({
             key, padding: crypto.constants.RSA_PKCS1_PADDING
         }, buffer);
-        return encrypted.toString("base64");
+        return encrypted;
     }
     /**
      * 公钥解密
      * @param data 
      * @param key 
      */
-    static publicDecrypt(data: string, key: string) {
-        var buffer = Buffer.from(data, "base64");
+    static publicDecrypt(data: string | Buffer, key: string) {
+        var buffer = 'string' == typeof data ? Buffer.from(data, "base64") : data;
         var decrypted = crypto.publicDecrypt({ key, padding: crypto.constants.RSA_PKCS1_PADDING }, buffer);
-        return decrypted.toString("utf8");
+        return decrypted;
     }
     /**
      * 私钥解密
-     * @param data 
-     * @param key 
+     * @param data 数据内容
+     * @param key 私钥
      */
-    static privateDecrypt(data: string, key: string) {
-        var buffer = Buffer.from(data, "base64");
+    static privateDecrypt(data: string | Buffer, key: string) {
+        var buffer = 'string' == typeof data ? Buffer.from(data, "base64") : data;
         var decrypted = crypto.privateDecrypt({ key, padding: crypto.constants.RSA_PKCS1_PADDING }, buffer);
-        return decrypted.toString("utf8");
+        return decrypted;
     }
 }
 
@@ -74,7 +74,7 @@ export class MD5 {
      * 加密
      * @param data 
      */
-    static encode(data: string) {
+    static encode(data: string | Uint8Array | Buffer | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | Float32Array | Float64Array | DataView) {
         return crypto.createHash('md5').update(data).digest('hex')
     }
     /**
